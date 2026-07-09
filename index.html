@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>머신러닝 분리 모델링 기반 문화 및 녹지 인프라의 지역 소멸위험 정량적 비교</title>
+    <title>머신러닝 분리 모델링 기반 문화(도서관) 및 녹지(공원) 인프라의 지역 소멸위험 정량적 비교 및 통계 검증</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     <style>
         body {
             font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
             line-height: 1.8;
-            color: #333;
-            background-color: #f8f9fa;
+            color: #2d3748;
+            background-color: #f7fafc;
             margin: 0;
             padding: 0;
         }
         .container {
             max-width: 900px;
-            margin: 40px auto;
+            margin: 50px auto;
             background: #ffffff;
-            padding: 50px 60px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 60px 80px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             border-radius: 8px;
         }
         h1 {
@@ -28,38 +28,42 @@
             color: #1a365d;
             text-align: center;
             line-height: 1.4;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
         .subtitle {
             font-size: 18px;
             color: #4a5568;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             font-weight: 500;
+            line-height: 1.3;
         }
-        .meta-info {
+        .meta-tags {
             background-color: #edf2f7;
             padding: 15px 20px;
             border-radius: 6px;
             font-size: 14px;
             color: #4a5568;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            border-left: 4px solid #2b6cb0;
         }
-        .meta-info code {
+        .meta-tags code {
             background: #fff;
-            padding: 2px 6px;
+            padding: 3px 8px;
             border-radius: 4px;
             border: 1px solid #cbd5e0;
-            margin-right: 5px;
+            margin-right: 6px;
             font-family: Consolas, monospace;
+            font-size: 13px;
         }
         h2 {
             font-size: 20px;
             color: #2b6cb0;
             border-bottom: 2px solid #e2e8f0;
             padding-bottom: 8px;
-            margin-top: 40px;
+            margin-top: 45px;
             font-weight: 600;
         }
         h3 {
@@ -70,22 +74,38 @@
         }
         p {
             text-align: justify;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             font-size: 15px;
         }
-        .abstract-box {
+        ul {
+            margin-bottom: 20px;
+            padding-left: 25px;
+            font-size: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .abstract-container {
             border: 1px solid #cbd5e0;
-            padding: 25px;
-            background-color: #f7fafc;
-            margin-bottom: 35px;
+            padding: 30px;
+            background-color: #f8fafc;
+            margin-bottom: 40px;
             border-radius: 6px;
             font-size: 14.5px;
         }
-        .abstract-title {
+        .abstract-section {
+            margin-bottom: 25px;
+        }
+        .abstract-section:last-child {
+            margin-bottom: 0;
+        }
+        .abstract-heading {
             font-weight: bold;
-            text-align: center;
-            margin-bottom: 15px;
+            font-size: 16px;
             color: #2d3748;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+            padding-bottom: 4px;
         }
         table {
             width: 100%;
@@ -95,7 +115,7 @@
         }
         th, td {
             border: 1px solid #cbd5e0;
-            padding: 10px 12px;
+            padding: 12px 14px;
             text-align: center;
         }
         th {
@@ -109,45 +129,39 @@
         pre {
             background-color: #1a202c;
             color: #f7fafc;
-            padding: 18px;
+            padding: 20px;
             border-radius: 6px;
             overflow-x: auto;
             font-family: 'Consolas', 'Courier New', monospace;
             font-size: 13.5px;
-            line-height: 1.5;
-            margin: 20px 0;
+            line-height: 1.6;
+            margin: 25px 0;
         }
-        .ascii-art {
+        .ascii-graph {
             background-color: #f7fafc;
             color: #2d3748;
             border: 1px dashed #cbd5e0;
-            font-family: monospace;
+            font-family: 'Courier New', monospace;
             white-space: pre;
-            padding: 15px;
+            padding: 20px;
             overflow-x: auto;
             font-size: 13px;
-            line-height: 1.4;
+            line-height: 1.5;
+            margin: 15px 0 25px 0;
+            border-radius: 4px;
         }
-        .caption {
-            font-size: 13px;
-            color: #718096;
-            text-align: center;
-            margin-top: -10px;
-            margin-bottom: 25px;
-        }
-        ul {
-            margin-bottom: 18px;
-            padding-left: 20px;
-            font-size: 15px;
-        }
-        li {
-            margin-bottom: 6px;
+        .table-caption {
+            font-size: 14px;
+            font-weight: bold;
+            color: #4a5568;
+            margin-top: 30px;
+            margin-bottom: 8px;
         }
         hr {
             border: 0;
             height: 1px;
             background: #e2e8f0;
-            margin: 40px 0;
+            margin: 50px 0;
         }
     </style>
 </head>
@@ -158,9 +172,9 @@
     <h1>머신러닝 분리 모델링 기반 문화(도서관) 및 녹지(공원) 인프라의<br>지역 소멸위험 정량적 비교 및 통계 검증</h1>
     <div class="subtitle">A Comparative Study on Predicting Regional Extinction Risk Using Machine Learning Models for Library and Urban Park Infrastructures</div>
 
-    <div class="meta-info">
+    <div class="meta-tags">
         <strong>과학고 정보·데이터 과학 과목 프로젝트 소논문 예시 · 데이터·인공지능 영역 · 난이도 중급</strong><br>
-        <span style="display:inline-block; margin-top:8px;">
+        <span style="display:inline-block; margin-top:10px;">
             <code>데이터 전처리</code> <code>다중선형회귀</code> <code>Z-Score 표준화</code> <code>결정계수(R²)</code> <code>지역인구소멸</code> <code>공공인프라</code>
         </span>
     </div>
@@ -177,19 +191,19 @@
         </thead>
         <tbody>
             <tr>
-                <strong><td>데이터</td></strong>
+                <td><strong>데이터</strong></td>
                 <td style="text-align: left;">시·도별 인구 통계 및 인프라 CSV 자료 전처리, 지자체명 표준화 매핑, 인구 10만 명당 비율 연산, 시각화</td>
             </tr>
             <tr>
-                <strong><td>알고리즘과 프로그래밍</td></strong>
+                <td><strong>알고리즘과 프로그래밍</strong></td>
                 <td style="text-align: left;"><code>StandardScaler</code>를 통한 데이터 표준화, 다중선형회귀 알고리즘 구동, 결정계수($R^2$) 및 계수 도출 파이썬 구현</td>
             </tr>
             <tr>
-                <strong><td>인공지능</td></strong>
+                <td><strong>인공지능</strong></td>
                 <td style="text-align: left;">도서관 모델(Model A)과 공원 모델(Model B)을 분리 가동하여 인구소멸 예측 성능($R^2$)의 한계와 효용 비교 분석</td>
             </tr>
             <tr>
-                <strong><td>디지털 문화와 윤리</td></strong>
+                <td><strong>디지털 문화와 윤리</strong></td>
                 <td style="text-align: left;">개별 주소나 가구 정보가 배제된 공공 개방형 원천 데이터만을 활용하고 인구 보존을 위한 공익적 대안 검토</td>
             </tr>
         </tbody>
@@ -197,15 +211,17 @@
 
     <hr>
 
-    <div class="abstract-box">
-        <div class="abstract-title">초록 (Abstract)</div>
-        <p><strong>국문 초록:</strong> 본 연구는 2026년 6월 대한민국 행정안전부 주민등록 인구 데이터를 기반으로 종속변수인 '소멸위험지수'를 산출하고, 생활 밀착형 하드웨어 인프라인 '공공도서관 정보'와 '도시공원 표준 데이터'를 각각 독립된 머신러닝 모델로 구축하여 분석하였다. 두 인프라가 인구 구조 건전성에 미치는 영향도를 일대일로 비교 대조하기 위해, 수집된 변수를 Z-Score 표준화한 후 독립적인 다중선형회귀 분석을 수행하였다. 모델 성능 평가를 위해 결정계수($R^2$)를 산출한 결과, 문화·교육 인프라 모델(Model A, $R^2 = 0.3405$)이 녹지·여가 인프라 모델(Model B, $R^2 = 0.2160$)에 비해 높은 설명력을 나타냈다. 회귀선 시각화 분석을 통해 지방 소멸위험 지역이 겪고 있는 '양적 지표의 착시'와 '질적 인프라의 공동화' 현상을 규명하였으며, 본 연구는 이를 바탕으로 지자체의 효율적인 소멸 방어선 구축을 위한 우선순위별 인프라 투자 고도화 전략을 제언한다.</p>
-        <p><strong>주요어:</strong> 소멸위험지수, 공공도서관, 도시공원, 머신러닝, 다중선형회귀, 결정계수, 데이터 과학</p>
+    <div class="abstract-container">
+        <div class="abstract-section">
+            <div class="abstract-heading">초록 / Abstract</div>
+            <p><strong>국문 초록:</strong> 본 연구는 2026년 6월 대한민국 행정안전부 주민등록 인구 데이터를 기반으로 종속변수인 '소멸위험지수'를 산출하고, 생활 밀착형 하드웨어 인프라인 '공공도서관 정보'와 '도시공원 표준 데이터'를 각각 독립된 머신러닝 모델로 구축하여 분석하였다. 두 인프라가 인구 구조 건전성에 미치는 영향도를 일대일로 비교 대조하기 위해, 수집된 변수를 Z-Score 표준화한 후 독립적인 다중선형회귀 분석을 수행하였다. 모델 성능 평가를 위해 결정계수($R^2$)를 산출한 결과, 문화·교육 인프라 모델(Model A, $R^2 = 0.3405$)이 녹지·여가 인프라 모델(Model B, $R^2 = 0.2160$)에 비해 높은 설명력을 나타냈다. 회귀선 시각화 분석을 통해 지방 소멸위험 지역이 겪고 있는 '양적 지표의 착시'와 '질적 인프라의 공동화' 현상을 규명하였으며, 본 연구는 이를 바탕으로 지자체의 효율적인 소멸 방어선 구축을 위한 우선순위별 인프라 투자 고도화 전략을 제언한다.</p>
+            <p><strong>주요어:</strong> 소멸위험지수, 공공도서관, 도시공원, 머신러닝, 다중선형회귀, 결정계수, 데이터 과학</p>
+        </div>
         
-        <hr style="margin: 15px 0; border-top: 1px dashed #cbd5e0;">
-        
-        <p><strong>English Abstract:</strong> This study calculates the "Regional Extinction Risk Index" based on the June 2026 resident registration population data from the Ministry of the Interior and Safety, and analyzes public library information and urban park standard data as independent machine learning regression models. To contrast the impact of these two infrastructures on the soundness of population structures, the collected variables were standardized using Z-scores before independent multiple linear regression analysis was conducted. The results evaluated by the coefficient of determination ($R^2$) showed that the cultural and educational infrastructure model (Model A, $R^2 = 0.3405$) possesses higher explanatory power than the green and leisure infrastructure model (Model B, $R^2 = 0.2160$). Through regression visualization analysis, the study identifies a statistical illusion of quantitative indices and the breakdown of qualitative operations in high-risk areas. Based on these insights, we suggest a prioritized infrastructure investment strategy for local governments to efficiently mitigate regional extinction.</p>
-        <p><strong>Keywords:</strong> Extinction Risk Index, Public Library, Urban Park, Machine Learning, Multiple Linear Regression, Coefficient of Determination ($R^2$), Data Science</p>
+        <div class="abstract-section">
+            <p><strong>English Abstract:</strong> This study calculates the "Regional Extinction Risk Index" based on the June 2026 resident registration population data from the Ministry of the Interior and Safety, and analyzes public library information and urban park standard data as independent machine learning regression models. To contrast the impact of these two infrastructures on the soundness of population structures, the collected variables were standardized using Z-scores before independent multiple linear regression analysis was conducted. The results evaluated by the coefficient of determination ($R^2$) showed that the cultural and educational infrastructure model (Model A, $R^2 = 0.3405$) possesses higher explanatory power than the green and leisure infrastructure model (Model B, $R^2 = 0.2160$). Through regression visualization analysis, the study identifies a statistical illusion of quantitative indices and the breakdown of qualitative operations in high-risk areas. Based on these insights, we suggest a prioritized infrastructure investment strategy for local governments to efficiently mitigate regional extinction.</p>
+            <p><strong>Keywords:</strong> Extinction Risk Index, Public Library, Urban Park, Machine Learning, Multiple Linear Regression, Coefficient of Determination ($R^2$), Data Science</p>
+        </div>
     </div>
 
     <h2>Ⅰ. 서론</h2>
@@ -239,7 +255,7 @@
     <h3>1. 데이터 수집 및 변수 정의</h3>
     <p>행정안전부 2026년 6월 주민등록 인구 현황, 문화체육관광부 전국 공공도서관 정보 표준 데이터, 국토교통부 전국 도시공원 표준 데이터를 수집하여 광역 시·도 단위로 매핑하였다.</p>
     <ul>
-        <li><strong>공통 종속변수 ($Y$):</strong> 소멸위험지수 ($Y = \frac{\text{20~39세 여성인구}}{\text{65세 이상 고령인구}}$)</li>
+        <li><strong>공통 종속변수 ($Y$):</strong> 소멸위험지수 (\(\frac{\text{20~39세 여성인구}}{\text{65세 이상 고령인구}}\))</li>
         <li><strong>[Model A] 공공도서관 모델 독립변수 ($X_{\text{lib}}$):</strong> 인구 10만 명당 도서관 수(양적), 도서관당 평균 사서 수(질적), 도서관당 평균 자료구입비(질적)</li>
         <li><strong>[Model B] 도시공원 모델 독립변수 ($X_{\text{park}}$):</strong> 인구 10만 명당 공원 수(양적), 주민 1인당 평균 공원 면적(질적)</li>
     </ul>
@@ -280,8 +296,9 @@ pop_sido['고령인구'] = pop_sido['2026년06월_계_60~69세'] + pop_sido['202
 pop_sido['가임여성인구'] = pop_sido['2026년06월_여_20~29세'] + pop_sido['2026년06월_여_30~39세']
 pop_sido['소멸위험지수'] = pop_sido['가임여성인구'] / pop_sido['고령인구']
 
-# 3. 도서관 및 공원 광역 지자체 그룹화 매핑 (생략)
-# merged = ... 
+# 3. 도서관 및 공원 광역 지자체 그룹화 매핑 (Sido Map 적용 생략)
+# [전처리 파이프라인 연산 완료 상태 가정]
+# ... (전처리 매핑 생략) ...
 
 # 4. 특징 엔지니어링 수행
 merged['인구10만명당_도서관수'] = (merged['도서관수'] / merged['2026년06월_계_총인구수']) * 100000
@@ -302,7 +319,8 @@ X_park_scaled = StandardScaler().fit_transform(X_park)
 reg_park = LinearRegression().fit(X_park_scaled, merged['소멸위험지수'])
 
 print(f"Model A (Library) R2: {reg_lib.score(X_lib_scaled, merged['소멸위험지수']):.4f}")
-print(f"Model B (Park) R2: {reg_park.score(X_park_scaled, merged['소멸위험지수']):.4f}")</code></pre>
+print(f"Model B (Park) R2: {reg_park.score(X_park_scaled, merged['소멸위험지수']):.4f}")
+</code></pre>
 
     <h3>2. 두 모델 예측값 시각화 파이썬 코드</h3>
 <pre><code>import matplotlib.pyplot as plt
@@ -326,12 +344,15 @@ plt.xlabel('Parks per 100k people')
 plt.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.show()</code></pre>
+plt.show()
+</code></pre>
+
+    <hr>
 
     <h2>Ⅴ. 결과 예시</h2>
     
     <h3>1. 지자체별 원천 데이터 통계 결과</h3>
-    <div class="caption">표 1. 지자체별 소멸위험지수 및 도서관·공원 인프라 세부 정량 지표</div>
+    <div class="table-caption">표 1. 지자체별 소멸위험지수 및 도서관·공원 인프라 세부 정량 지표</div>
     <table>
         <thead>
             <tr>
@@ -361,11 +382,11 @@ plt.show()</code></pre>
     </table>
 
     <h3>2. 머신러닝 통계 분석 결과</h3>
-    <div class="caption">표 2. 두 회귀 예측 모델의 통계 성능 평가 지표 및 회귀계수 결과</div>
+    <div class="table-caption">표 2. 두 회귀 예측 모델의 통계 성능 평가 지표 및 회귀계수 결과</div>
     <table>
         <thead>
             <tr>
-                <th style="width: 30%;">평가 항목</th>
+                <th style="width: 35%;">평가 항목</th>
                 <th>[Model A] 공공도서관 인프라 모델</th>
                 <th>[Model B] 도시공원 인프라 모델</th>
             </tr>
@@ -382,15 +403,15 @@ plt.show()</code></pre>
                 <td>0.4047</td>
             </tr>
             <tr>
-                <td style="text-align: center;"><strong>독립변수별 표준화 회귀계수 ($\beta$)</strong></td>
+                <td><strong>독립변수별 표준화 회귀계수 ($\beta$)</strong></td>
                 <td style="text-align: left; padding-left: 20px;">
-                    • 인구당 도서관 수: -0.1121<br>
-                    • 평균 사서 수: -0.0522<br>
-                    • 평균 자료구입비: -0.0785
+                    * 인구당 도서관 수: \(-0.1121\)<br>
+                    * 평균 사서 수: \(-0.0522\)<br>
+                    * 평균 자료구입비: \(-0.0785\)
                 </td>
                 <td style="text-align: left; padding-left: 20px;">
-                    • 인구당 공원 수: +0.0351<br>
-                    • 1인당 공원 면적: -0.0612
+                    * 인구당 공원 수: \(+0.0351\)<br>
+                    * 1인당 공원 면적: \(-0.0612\)
                 </td>
             </tr>
         </tbody>
@@ -398,8 +419,8 @@ plt.show()</code></pre>
 
     <h3>3. 모델별 데이터 플롯 시각화</h3>
     
-    <div class="caption">그림 1. [Model A] 공공도서관 밀집도 대비 소멸위험지수 회귀 분산 형태</div>
-    <div class="ascii-art">
+    <div class="table-caption">그림 1. [Model A] 공공도서관 밀집도 대비 소멸위험지수 회귀 분산 형태</div>
+    <div class="ascii-graph">
 소멸위험지수 (Y)
   ▲
 0.6 │                                  ● 세종
@@ -415,8 +436,8 @@ plt.show()</code></pre>
     1.0        2.0        3.0        4.0        5.0
                     인구 10만 명당 공공도서관 수 (X)</div>
 
-    <div class="caption" style="margin-top: 20px;">그림 2. [Model B] 도시공원 밀집도 대비 소멸위험지수 회귀 분산 형태</div>
-    <div class="ascii-art">
+    <div class="table-caption">그림 2. [Model B] 도시공원 밀집도 대비 소멸위험지수 회귀 분산 형태</div>
+    <div class="ascii-graph">
 소멸위험지수 (Y)
   ▲
 0.6 │                        ● 세종
@@ -435,6 +456,8 @@ plt.show()</code></pre>
     <h3>결과 해석 예시 문장</h3>
     <p>머신러닝 모델 분리 가동 결과, 문화·교육 인프라를 대변하는 공공도서관 모델(Model A)의 결정계수가 0.3405로 도시공원 모델(Model B)의 0.2160보다 12.45%p 높게 나타났다. 이는 정주 인구 구조의 건전성을 방어하는 기저 매커니즘 내에서 도서관 자산의 선형 설명력이 공원 자산보다 통계적으로 강력하게 작용함을 실증한다.</p>
     <p>두 시각화 그래프를 확인하면 강원, 전북 등 소멸 고위험 지역(Y축 하단)일수록 오히려 인구 대비 도서관 수와 공원 수가 우측으로 쏠리는 역설적 분산 형태가 나타나는데, 이는 총인구 급감으로 분모가 극소화되며 발생한 통계적 양적 착시 현상이다. 반면 도서관 모델 내부의 질적 지표(평균 사서 수, 자료비)는 대도시권일수록 압도적으로 높아, 소멸위험 지역일수록 심각한 '인프라의 내부 질적 공동화'를 겪고 있음이 증명되었다.</p>
+
+    <hr>
 
     <h2>Ⅵ. 논의</h2>
     
@@ -458,7 +481,9 @@ plt.show()</code></pre>
 
     <h2>Ⅶ. 결론</h2>
     <p>본 소논문 프로젝트는 2026년 최신 주민등록 인구 구조 데이터와 공공 인프라 개방 데이터를 활용하여 문화(도서관) 및 녹지(공원) 자산이 지역 소멸 방어에 미치는 기여도를 머신러닝 선형회귀 기법으로 교차 검증하였다. 최종 성능 평가 결과 도서관 예측 모델($R^2 = 0.3405$)이 공원 예측 모델($R^2 = 0.2160$)보다 정주 인구 구조 보존 변동을 훨씬 명확하게 설명해 냈다.</p>
-    <p>시각화 분석 결과 소멸위험 지역일수록 양적 수치만 높고 운영인력(사서)과 컨텐츠 예산이 무너지는 '질적 부실화'를 겪고 있음이 관측되었다. 따라서 가용 재원이 한정된 지방 소멸대응기금 집행 시, 단순 토목 중심의 공원 확충보다는 검증된 교육·문화 인프라(도서관)의 질적 내실화(전문 인력 충원 및 프로그램 고도화)에 예산을 최우선 배정해야 하며, 공원은 문화 거점 주변에 결합하는 '컴팩트 복합 거점화' 전략을 수립해야 한다. 본 연구는 데이터 기반의 합리적 공공 정책 수립 방향을 제시하는 융합형 데이터 과학 탐구 모델로 활용될 수 Bhd.</p>
+    <p>시각화 분석 결과 소멸위험 지역일수록 양적 수치만 높고 운영인력(사서)과 컨텐츠 예산이 무너지는 '질적 부실화'를 겪고 있음이 관측되었다. 따라서 가용 재원이 한정된 지방 소멸대응기금 집행 시, 단순 토목 중심의 공원 확충보다는 검증된 교육·문화 인프라(도서관)의 질적 내실화(전문 인력 충원 및 프로그램 고도화)에 예산을 최우선 배정해야 하며, 공원은 문화 거점 주변에 결합하는 '컴팩트 복합 거점화' 전략을 수립해야 한다. 본 연구는 데이터 기반의 합리적 공공 정책 수립 방향을 제시하는 융합형 데이터 과학 탐구 모델로 활용될 수 있다.</p>
+
+    <hr>
 
     <h2>참고문헌 예시</h2>
     <p>1. 행정안전부, 주민등록 인구 통계 대기질 및 연령별 인구 구조 분석 데이터 (2026.06).<br>
@@ -473,30 +498,30 @@ plt.show()</code></pre>
     <table>
         <thead>
             <tr>
-                <th style="width: 20%;">구성 항목</th>
+                <th style="width: 20%;">구성</th>
                 <th>본 논문 투입 문장 틀 적용 결과</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td><strong>연구 동기</strong></td>
-                <td style="text-align: left;">본 연구는 지자체의 정주 여건 예산 분산 투자 문제를 해결하고 데이터 기반으로 인프라 효율성을 분석하기 위해 시작되었다. 문화 자산과 녹지 자산의 성격 차이를 규명하여 효율적인 예산 배정의 근거를 다진 다.</td>
+                <td style="text-align: left;">본 연구는 지자체의 정주 여건 예산 분산 투자 문제를 해결하고 데이터 기반으로 인프라 효율성을 분석하기 위해 시작되었다.</td>
             </tr>
             <tr>
                 <td><strong>연구 질문</strong></td>
-                <td style="text-align: left;">본 연구의 핵심 질문은 공공도서관과 도시공원 중 어떤 인프라 자산이 시·도별 소멸위험지수 변동을 더 높은 수준으로 설명(예측)할 수 있으며, 이들 인프라의 양적·질적 지표가 소멸 고위험 지역에서 어떻게 왜곡되어 나타나는가이다.</td>
+                <td style="text-align: left;">본 연구의 핵심 질문은 공공도서관과 도시공원 중 어떤 인프라 자산이 시·도별 소멸위험지수 변동을 더 높은 수준으로 설명할 수 있는가이다.</td>
             </tr>
             <tr>
                 <td><strong>방법</strong></td>
-                <td style="text-align: left;">수집한 시·도별 공간 인프라 자산 자료는 <code>StandardScaler</code>를 이용한 Z-Score 표준화 전처리 후 독립변수군($X$)으로 구성하여 종속변수인 소멸위험지수($Y$) 다중선형회귀 학습에 사용하였다.</td>
+                <td style="text-align: left;">수집한 시·도별 공간 인프라 자산 자료는 Z-Score 표준화 전처리 후 독립변수군으로 구성하여 종속변수인 소멸위험지수 다중선형회귀 학습에 사용하였다.</td>
             </tr>
             <tr>
                 <td><strong>결과</strong></td>
-                <td style="text-align: left;">머신러닝 독립 모델 비교 결과, 문화·교육 자산을 다룬 공공도서관 회귀 모델이 도시공원 모델보다 약 1.5배 높은 결정계수($R^2 = 0.3405 > 0.2160$)를 나타내어 소멸위험지수 변동을 통계적으로 더 강력하게 설명함을 실증했다.</td>
+                <td style="text-align: left;">머신러닝 독립 모델 비교 결과, 문화·교육 자산을 다룬 공공도서관 회귀 모델이 도시공원 모델보다 약 1.5배 높은 결정계수($R^2 = 0.3405$)를 나타냈다.</td>
             </tr>
             <tr>
                 <td><strong>한계</strong></td>
-                <td style="text-align: left;">본 연구는 17개 광역 지자체 단위의 거시적 데이터만을 사용하여 동일 시·도 내 시·군·구(기초 지자체) 간의 공간적 격차를 충분히 반영하지 못했으며, 이로 인해 생태학적 오류(Ecological Fallacy)가 발생할 가능성이 있다는 한계가 있다.</td>
+                <td style="text-align: left;">본 연구는 광역 지자체 단위의 거시적 데이터만을 사용하여 기초 지자체 내부의 세부적인 공간적 격차를 충분히 반영하지 못했다는 한계가 있다.</td>
             </tr>
         </tbody>
     </table>
