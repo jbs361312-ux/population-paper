@@ -1,93 +1,47 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>인구소멸 위험과 생활 인프라 분석</title>
-
-<style>
-body{
-    margin:0;
-    font-family:"맑은 고딕",sans-serif;
-    background:#f5f5f5;
-}
-
-header{
-    background:#004d80;
-    color:white;
-    text-align:center;
-    padding:25px;
-}
-
-nav{
-    background:white;
-    padding:15px;
-    box-shadow:0 2px 5px rgba(0,0,0,.1);
-    position:sticky;
-    top:0;
-}
-
-nav a{
-    margin-right:15px;
-    text-decoration:none;
-    color:#004d80;
-    font-weight:bold;
-}
-
-iframe{
-    width:100%;
-    height:90vh;
-    border:none;
-}
-</style>
-
-<script>
-
-function load(page){
-    document.getElementById("paper").src=page;
-}
-
-</script>
-
+  <meta charset="UTF-8">
+  <title>인프라 데이터 기반 지역 소멸위험 예측 연구 논문</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Machine Learning Paper Web Service">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  
+  <style>
+    /* 논문 가독성을 위한 타이포그래피 최적화 */
+    body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; }
+    .markdown-section { max-width: 850px; padding: 40px 15px; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background-color: #f5f5f5; }
+    pre { background: #f8f9fa !important; border: 1px solid #e9ecef; }
+    
+    /* 인쇄 및 PDF 저장 전용 스타일 버튼 */
+    .print-btn {
+      position: fixed; top: 20px; right: 20px; z-index: 999;
+      background: #42b983; color: white; border: none;
+      padding: 10px 16px; border-radius: 4px; cursor: pointer;
+      font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .print-btn:hover { background: #3aa373; }
+    
+    @media print {
+      .print-btn, .sidebar, .sidebar-toggle { display: none !important; }
+      .content { left: 0 !important; }
+      .markdown-section { max-width: 100% !important; padding: 0 !important; }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
+  <button class="print-btn" onclick="window.print()">🖨️ PDF 저장 / 인쇄하기</button>
 
-<h1>인구소멸 위험과 생활 인프라 분석</h1>
+  <div id="app">논문 로딩 중...</div>
 
-<button onclick="window.print()">
-🖨 PDF / 인쇄
-</button>
-
-</header>
-
-<nav>
-
-<a href="#" onclick="load('abstract.html')">초록</a>
-
-<a href="#" onclick="load('introduction.html')">Ⅰ. 서론</a>
-
-<a href="#" onclick="load('background.html')">Ⅱ. 이론적 배경</a>
-
-<a href="#" onclick="load('method.html')">Ⅲ. 연구방법</a>
-
-<a href="#" onclick="load('code.html')">Ⅳ. 구현 코드</a>
-
-<a href="#" onclick="load('result.html')">Ⅴ. 결과</a>
-
-<a href="#" onclick="load('discussion.html')">Ⅵ. 논의</a>
-
-<a href="#" onclick="load('conclusion.html')">Ⅶ. 결론</a>
-
-<a href="#" onclick="load('reference.html')">참고문헌</a>
-
-</nav>
-
-<iframe
-id="paper"
-src="abstract.html">
-</iframe>
-
-</body>
-</html>
+  <script>
+    window.$docsify = {
+      name: '소논문 리포지토리',
+      repo: '',
+      loadSidebar: false, // 단일 페이지 내부 목차 자동 생성 활성화
+      sub
